@@ -1,0 +1,39 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.jks
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+backend/erasmus.db
+backend/uploads/
+backend/emails/
+
+# JavaScript dependencies and build output
+node_modules/
+.next/
+dist/
+build/
+out/
+.expo/
+web-build/
+*.tsbuildinfo
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Local archives and logs
+*.zip
+*.log
+npm-debug.log*
+

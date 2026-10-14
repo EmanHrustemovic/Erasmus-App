@@ -1,0 +1,10 @@
+import { useState } from "react";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { apiRequest } from "@/lib/api";
+export default function ResetPasswordScreen() {
+  const router = useRouter(); const { token } = useLocalSearchParams(); const [password, setPassword] = useState(""); const [status, setStatus] = useState("");
+  const submit = async () => { try { const result = await apiRequest<{ message: string }>("/auth/reset-password", { method: "POST", body: JSON.stringify({ token: String(token ?? ""), new_password: password }) }); setStatus(result.message); } catch (err: unknown) { setStatus(err instanceof Error ? err.message : "Reset failed"); } };
+  return <View style={styles.screen}><Text style={styles.eyebrow}>ACCOUNT RECOVERY</Text><Text style={styles.title}>Choose a new password</Text>{status && <Text style={styles.status}>{status}</Text>}<TextInput style={styles.input} placeholder="New password" value={password} onChangeText={setPassword} secureTextEntry /><Pressable style={styles.button} onPress={submit}><Text style={styles.buttonText}>Update password</Text></Pressable><Pressable onPress={() => router.replace("/login" as never)}><Text style={styles.link}>Back to login</Text></Pressable></View>;
+}
+const styles = StyleSheet.create({ screen: { flex: 1, justifyContent: "center", padding: 24, backgroundColor: "#f4f7fb" }, eyebrow: { color: "#2563eb", fontWeight: "800", letterSpacing: 1.4 }, title: { color: "#0f172a", fontSize: 30, fontWeight: "800", marginTop: 8, marginBottom: 20 }, input: { borderWidth: 1, borderColor: "#dbe3ef", borderRadius: 14, padding: 14, backgroundColor: "#fff" }, button: { backgroundColor: "#2563eb", borderRadius: 14, minHeight: 50, justifyContent: "center", alignItems: "center", marginTop: 16 }, buttonText: { color: "#fff", fontWeight: "800" }, status: { color: "#166534", backgroundColor: "#dcfce7", borderRadius: 10, padding: 11, marginBottom: 12 }, link: { color: "#2563eb", fontWeight: "700", textAlign: "center", marginTop: 20 } });

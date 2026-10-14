@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+pydantic
+email-validator
+python-jose[cryptography]
+passlib[bcrypt]
+bcrypt<4
+pillow
+openpyxl
+fpdf2
+pyotp
+qrcode[pil]
